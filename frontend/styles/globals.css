@@ -1,0 +1,71 @@
+/* Tailwind CSS directives - processed by PostCSS */
+/* eslint-disable */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    @apply bg-slate-900 text-white antialiased;
+    overscroll-behavior: none;
+  }
+
+  main > :first-child {
+    margin-top: 0 !important;
+  }
+
+  main > :last-child {
+    margin-bottom: 0 !important;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded-lg transition-all duration-300;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-400 transition-all duration-300;
+  }
+
+  .card {
+    @apply bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700;
+  }
+
+  .seat {
+    @apply w-10 h-10 rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-110 flex items-center justify-center text-xs font-bold shadow-md;
+  }
+
+  .seat-available {
+    @apply bg-emerald-500 hover:bg-emerald-600 text-white hover:shadow-green-500/50;
+  }
+
+  .seat-selected {
+    @apply bg-amber-500 hover:bg-amber-600 text-white hover:shadow-yellow-500/50;
+  }
+
+  .seat-held {
+    @apply bg-purple-500 text-white opacity-70 cursor-not-allowed;
+  }
+
+  .seat-booked {
+    @apply bg-red-500 text-white opacity-50 cursor-not-allowed;
+  }
+
+  .screen {
+    @apply w-full h-2 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full mb-8 shadow-lg shadow-blue-500/50;
+  }
+}
