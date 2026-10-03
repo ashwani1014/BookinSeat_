@@ -30,7 +30,32 @@ export default function SeatSelectionPage({ movieId: propMovieId }) {
     const finalId = resolvedId || 'movie_1';
     setMovieId(finalId);
     fetchMovieDetails(finalId);
+
+    // Setup polling for live seat updates
+    const pollInterval = setInterval(() => {
+      pollSeatUpdates(finalId);
+    }, 3000);
+
+    return () => clearInterval(pollInterval);
   }, [propMovieId, queryMovieId]);
+
+  const pollSeatUpdates = async (idToFetch) => {
+    try {
+      const response = await movieAPI.getMovieSeats(idToFetch);
+      if (response.success && response.data) {
+        const updatedSeats = response.data.seats || [];
+        setSeats(updatedSeats);
+        
+        // Remove selected seats that are no longer available
+        setSelectedSeats(prev => prev.filter(selectedSeat => {
+          const updatedSeat = updatedSeats.find(s => s._id === selectedSeat._id || s.seatNumber === selectedSeat.seatNumber);
+          return updatedSeat && updatedSeat.status === 'available';
+        }));
+      }
+    } catch (err) {
+      // ignore poll errors
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
