@@ -48,4 +48,14 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+
+  // Background job to release expired bookings every minute
+  setInterval(async () => {
+    try {
+      const bookingService = require('./services/bookingService');
+      await bookingService.releaseExpiredBookings();
+    } catch (err) {
+      console.error('Error in background job releasing expired bookings:', err);
+    }
+  }, 60000);
 });
