@@ -35,8 +35,8 @@ const bookingSchema = new mongoose.Schema({
   expiresAt: {
     type: Date,
     default: function() {
-      // Booking expires in 15 minutes
-      return new Date(Date.now() + 15 * 60 * 1000);
+      // Booking expires in 5 minutes
+      return new Date(Date.now() + 5 * 60 * 1000);
     },
   },
 }, {
