@@ -24,46 +24,6 @@ function LoginForm() {
     setError('');
   };
 
-  const handleQuickDemoLogin = async () => {
-    setError('');
-    setLoading(true);
-    try {
-      const demoEmail = 'demo@seatflow.com';
-      const demoPassword = 'password123';
-      const response = await authAPI.login(demoEmail, demoPassword);
-      if (response.success) {
-        router.push(redirectTo);
-        router.refresh();
-      } else {
-        // Direct local fallback demo login
-        if (typeof window !== 'undefined') {
-          const demoUser = {
-            _id: 'user_demo_101',
-            name: 'Demo Tester',
-            email: demoEmail
-          };
-          localStorage.setItem('token', 'demo_jwt_token_123');
-          localStorage.setItem('user', JSON.stringify(demoUser));
-        }
-        router.push(redirectTo);
-        router.refresh();
-      }
-    } catch (err) {
-      if (typeof window !== 'undefined') {
-        const demoUser = {
-          _id: 'user_demo_101',
-          name: 'Demo Tester',
-          email: 'demo@seatflow.com'
-        };
-        localStorage.setItem('token', 'demo_jwt_token_123');
-        localStorage.setItem('user', JSON.stringify(demoUser));
-      }
-      router.push(redirectTo);
-      router.refresh();
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,28 +60,6 @@ function LoginForm() {
             </p>
           </div>
 
-          {/* Quick Demo User Box */}
-          <div className="mb-6 p-4 rounded-xl bg-cyan-950/40 border border-cyan-500/30 text-slate-300">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1">
-                <span className="material-symbols-outlined text-sm">badge</span>
-                Quick Testing (Dummy User)
-              </span>
-              <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">Ready</span>
-            </div>
-            <p className="text-xs text-slate-400 mb-3">
-              Click below to login instantly with 1-click test credentials:
-            </p>
-            <button
-              type="button"
-              onClick={handleQuickDemoLogin}
-              disabled={loading}
-              className="w-full py-2.5 px-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-bold transition-all shadow-md shadow-cyan-500/20 flex items-center justify-center gap-1.5"
-            >
-              <span className="material-symbols-outlined text-base">bolt</span>
-              <span>1-Click Demo Login (Instant Access)</span>
-            </button>
-          </div>
 
           {error && (
             <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg mb-6 text-sm">
